@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Price Calculator BD — স্বর্ণের দাম ক্যালকুলেটর</title>
+<meta name="description" content="Offline bilingual (EN/বাংলা) Bangladesh gold price calculator: per-bhori rate, karat purity, ana/ratti/gram weights, making charge, price history.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <h1 data-i18n="appTitle">Gold Price Calculator BD</h1>
+      <p data-i18n="appSub">Bangladesh gold price estimator — fully offline</p>
+    </div>
+    <button id="lang-toggle" class="lang-btn" type="button">বাংলা</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- Calculator -->
+  <section class="card" aria-labelledby="calc-h">
+    <h2 id="calc-h" data-i18n="calcTitle">Price calculator</h2>
+    <form id="calc-form" novalidate>
+      <div class="field">
+        <label for="rate" data-i18n="rateLabel">Rate per bhori (BDT)</label>
+        <input type="number" id="rate" min="0" step="any" inputmode="decimal" autocomplete="off">
+        <span class="hint" data-i18n="rateHint">Enter today's market rate (no live feed)</span>
+        <span class="err" id="err-rate" data-i18n="rateRequired">Enter a rate greater than 0.</span>
+      </div>
+
+      <div class="field">
+        <label data-i18n="karatLabel">Gold purity (karat)</label>
+        <div class="karat-buttons" id="karat-buttons" role="group" aria-label="karat"></div>
+      </div>
+
+      <div class="field">
+        <label for="weight" data-i18n="weightLabel">Weight</label>
+        <div class="weight-row">
+          <input type="number" id="weight" min="0" step="any" inputmode="decimal" autocomplete="off">
+          <select id="weight-unit" aria-label="weight unit">
+            <option value="bhori" data-i18n="unit_bhori">bhori</option>
+            <option value="ana" data-i18n="unit_ana">ana</option>
+            <option value="ratti" data-i18n="unit_ratti">ratti</option>
+            <option value="gram" data-i18n="unit_gram">gram</option>
+          </select>
+        </div>
+        <span class="err" id="err-weight" data-i18n="weightRequired">Enter a weight greater than 0.</span>
+      </div>
+
+      <div class="field">
+        <label for="making" data-i18n="makingLabel">Making charge (%)</label>
+        <input type="number" id="making" min="0" max="100" step="any" inputmode="decimal" autocomplete="off">
+        <span class="hint" data-i18n="makingHint">Workshop making charge added on top</span>
+        <span class="err" id="err-making" data-i18n="makingInvalid">Making charge must be between 0 and 100.</span>
+      </div>
+
+      <button type="submit" class="btn primary" data-i18n="calculate">Calculate price</button>
+    </form>
+
+    <div class="results" id="results-box">
+      <p class="results-empty" id="results-empty" data-i18n="resultEmpty">Enter a rate and weight, then press Calculate.</p>
+      <div id="results-filled" hidden>
+        <h2 data-i18n="resultTitle">Price breakdown</h2>
+        <table class="breakdown">
+          <tr><td data-i18n="rowWeight">Gold weight</td><td id="r-weight"></td></tr>
+          <tr><td data-i18n="rowRate">Rate (per bhori, 24k)</td><td id="r-rate"></td></tr>
+          <tr><td data-i18n="rowPurity">Purity factor</td><td id="r-purity"></td></tr>
+          <tr><td data-i18n="rowBase">Gold price</td><td id="r-base"></td></tr>
+          <tr><td data-i18n="rowMaking">Making charge</td><td id="r-making"></td></tr>
+          <tr class="total"><td data-i18n="rowTotal">Total payable</td><td id="r-total"></td></tr>
+        </table>
+        <p class="weight-eq" id="weight-eq"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- History -->
+  <section class="card" aria-labelledby="hist-h">
+    <div class="hist-head">
+      <h2 id="hist-h" data-i18n="historyTitle">Price history</h2>
+      <span class="badge" id="history-count">0</span>
+    </div>
+    <p class="hist-empty" id="history-empty" data-i18n="historyEmpty">No saved rates yet. Save today's rate to start tracking.</p>
+    <ul id="history-list"></ul>
+
+    <div class="hist-form">
+      <div class="field">
+        <label for="hist-date" data-i18n="dateLabel">Date</label>
+        <input type="date" id="hist-date">
+      </div>
+      <div class="field">
+        <label for="hist-note" data-i18n="noteLabel">Note (optional)</label>
+        <input type="text" id="hist-note" data-i18n-ph="notePh" placeholder="e.g. Baitul Mukarram market">
+      </div>
+      <div class="field full">
+        <button type="button" class="btn primary" id="save-rate" data-i18n="saveRate">Save rate to history</button>
+      </div>
+    </div>
+
+    <div class="hist-actions">
+      <button type="button" class="btn ghost" id="export-btn" data-i18n="exportBtn">Export JSON</button>
+      <button type="button" class="btn ghost" id="import-btn" data-i18n="importBtn">Import JSON</button>
+      <input type="file" id="import-file" accept="application/json,.json" hidden>
+      <button type="button" class="btn danger" id="clear-btn" data-i18n="clearData">Clear all data</button>
+    </div>
+  </section>
+
+  <!-- About the math -->
+  <section class="card about" aria-labelledby="about-h">
+    <h2 id="about-h" data-i18n="aboutTitle">About the math</h2>
+    <p data-i18n="aboutBody">1 bhori = 16 ana = 96 ratti = 11.664 grams…</p>
+  </section>
+
+</main>
+
+<footer data-i18n="footer">Runs fully offline. No data leaves your device.</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/calc.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+/* Gold Price Calculator BD — styles. Gold/ink theme, mobile-first responsive. */
+:root {
+  --gold: #b8860b;
+  --gold-deep: #8a6508;
+  --gold-soft: #fdf6e3;
+  --ink: #1f2937;
+  --muted: #6b7280;
+  --line: #e5e7eb;
+  --card: #ffffff;
+  --bg: #faf7f0;
+  --danger: #b91c1c;
+  --radius: 12px;
+  --font: "Segoe UI", "Noto Sans Bengali", "Hind Siliguri", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+  -webkit-text-size-adjust: 100%;
+}
+
+header.topbar {
+  background: linear-gradient(135deg, #3b2f17 0%, #6b5312 60%, var(--gold-deep) 100%);
+  color: #fff;
+  padding: 18px 16px;
+}
+
+.topbar-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand h1 { font-size: 1.35rem; margin: 0 0 2px; }
+.brand p { margin: 0; font-size: 0.85rem; opacity: 0.85; }
+
+.lang-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.5);
+  color: #fff;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.lang-btn:hover { background: rgba(255,255,255,0.28); }
+
+main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.card h2 { margin: 0 0 14px; font-size: 1.15rem; color: var(--gold-deep); }
+
+.field { margin-bottom: 14px; }
+.field label { display: block; font-weight: 600; margin-bottom: 6px; }
+.field .hint { display: block; font-weight: 400; font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+
+input[type="number"], input[type="text"], input[type="date"], select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  font-family: var(--font);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+}
+input.invalid { border-color: var(--danger); background: #fef2f2; }
+input:focus, select:focus, button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.err {
+  display: none;
+  color: var(--danger);
+  font-size: 0.82rem;
+  margin-top: 4px;
+}
+.err.show { display: block; }
+
+.weight-row { display: flex; gap: 10px; }
+.weight-row input { flex: 1; min-width: 0; }
+.weight-row select { flex: 0 0 130px; }
+
+.karat-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+.karat-btn {
+  flex: 1 1 0;
+  min-width: 64px;
+  padding: 10px 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+}
+.karat-btn.active {
+  border-color: var(--gold);
+  background: var(--gold-soft);
+  color: var(--gold-deep);
+}
+
+.btn {
+  display: inline-block;
+  border: none;
+  border-radius: 8px;
+  padding: 11px 20px;
+  font-size: 1rem;
+  font-family: var(--font);
+  cursor: pointer;
+}
+.btn.primary { background: var(--gold-deep); color: #fff; font-weight: 700; width: 100%; }
+.btn.primary:hover { background: var(--gold); }
+.btn.ghost { background: #fff; border: 1px solid var(--line); color: var(--ink); }
+.btn.ghost:hover { border-color: var(--gold); }
+.btn.danger { background: #fff; border: 1px solid #f3c2c2; color: var(--danger); }
+.btn.danger:hover { background: #fef2f2; }
+.btn.sm { padding: 6px 12px; font-size: 0.85rem; }
+
+.results { margin-top: 18px; border-top: 1px dashed var(--line); padding-top: 14px; }
+.results.show { display: block; }
+.results-empty { color: var(--muted); font-size: 0.95rem; }
+
+table.breakdown { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+table.breakdown td { padding: 8px 4px; border-bottom: 1px solid var(--line); }
+table.breakdown td:last-child { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.breakdown tr.total td { border-bottom: none; font-weight: 800; font-size: 1.2rem; color: var(--gold-deep); padding-top: 12px; }
+
+.weight-eq { margin-top: 10px; font-size: 0.85rem; color: var(--muted); }
+
+.hist-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.hist-head h2 { margin: 0; }
+.badge {
+  background: var(--gold-soft);
+  border: 1px solid var(--gold);
+  color: var(--gold-deep);
+  border-radius: 999px;
+  padding: 2px 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+#history-list { list-style: none; margin: 0 0 14px; padding: 0; }
+.hist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--line);
+}
+.hist-rate { font-weight: 700; font-variant-numeric: tabular-nums; }
+.hist-date { font-size: 0.82rem; color: var(--muted); }
+.hist-empty { color: var(--muted); font-size: 0.95rem; margin: 6px 0 14px; }
+
+.hist-form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.hist-form .full { grid-column: 1 / -1; }
+.hist-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+
+.about p { margin: 0; font-size: 0.95rem; color: #374151; }
+
+footer { text-align: center; color: var(--muted); font-size: 0.82rem; padding: 0 16px 24px; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(20px);
+  background: #1f2937;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  max-width: 90vw;
+  text-align: center;
+  z-index: 50;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 640px) {
+  .brand h1 { font-size: 1.1rem; }
+  .brand p { font-size: 0.75rem; }
+  .lang-btn { padding: 7px 14px; font-size: 0.85rem; }
+  main { padding: 14px 12px 48px; }
+  .card { padding: 16px 14px; }
+  .hist-form { grid-template-columns: 1fr; }
+  table.breakdown { font-size: 0.9rem; }
+  table.breakdown tr.total td { font-size: 1.05rem; }
+}
